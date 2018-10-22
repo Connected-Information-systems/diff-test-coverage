@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+const Promise = require('bluebird');
 const coverageParser = require('../lib/coverage-parser');
 const diffParser = require('diffparser');
 
@@ -24,3 +25,9 @@ const argv = require('yargs')
     .example(`hg diff -r 'p1(min(branch(CPB-1352))):CPB-1352' | diff-test-coverage -c **/lcov.info -t lcov --`)
     .wrap(null)
     .argv;
+
+Promise.all([
+    coverageParser.parseGlobs(argv.coverage, argv.type),
+    diffParser(argv._[0])
+]).then(console.log);
+

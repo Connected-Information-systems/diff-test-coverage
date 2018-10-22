@@ -1,3 +1,3 @@
 module.exports = {
-    diffParser: require('./lib/diff-parser')
+    coverageParser: require('./lib/coverage-parser')
 };

@@ -23,6 +23,7 @@
   ],
   "author": "Connected Information Systems B.V. (https://connectis.com/)",
   "license": "MIT",
+  "repository": "github:Connected-Information-systems/diff-test-coverage",
   "dependencies": {
     "@cvrg-report/clover-json": "^0.1.0",
     "@cvrg-report/golang-cover-json": "^0.1.0",
