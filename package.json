@@ -2,7 +2,6 @@
   "name": "diff-test-coverage",
   "version": "0.6.0",
   "description": "Commandline tool which calculates test coverage of (source control) diffs.",
-  "main": "index.js",
   "bin": {
     "diff-test-coverage": "bin/cli.js"
   },

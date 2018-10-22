@@ -1,7 +1,9 @@
 #! /usr/bin/env node
+const _ = require('lodash');
 const Promise = require('bluebird');
 const coverageParser = require('../lib/coverage-parser');
-const diffParser = require('diffparser');
+const diffParser = require('../lib/diff-parser');
+const diffCoverageCalculator = require('../lib/diff-coverage-calculator');
 
 require('pipe-args').load();
 const argv = require('yargs')
@@ -26,8 +28,15 @@ const argv = require('yargs')
     .wrap(null)
     .argv;
 
-Promise.all([
-    coverageParser.parseGlobs(argv.coverage, argv.type),
-    diffParser(argv._[0])
-]).then(console.log);
+Promise.resolve()
+    .then(() => diffParser.parse(argv._[0], process.cwd()))
+    .then(diffResults => {
+        const diffFiles = _.map(diffResults, 'to');
+        return coverageParser.parseGlobs(argv.coverage, argv.type, item => _.includes(diffFiles, item.file))
+            .then(coverageResults => ({
+                diffResults,
+                coverageResults
+            }))
+    })
+    .then(({diffResults, coverageResults}) => diffCoverageCalculator.calculate(diffResults, coverageResults));
 
