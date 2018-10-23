@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 const coverageParser = require('../lib/coverage-parser');
 const application = require('../lib/application');
+const coverageLogger = require('../lib/coverage-logger');
 
 require('pipe-args').load();
 const argv = require('yargs')
@@ -34,5 +35,5 @@ application.run({
         text: argv._[0],
         baseDir: process.cwd()
     }
-}).then(console.log);
+}).then(filteredCoverageByFile => coverageLogger.log(filteredCoverageByFile, process.cwd()));
 
