@@ -27,6 +27,7 @@
     "@cvrg-report/clover-json": "^0.1.0",
     "@cvrg-report/golang-cover-json": "^0.1.0",
     "bluebird": "^3.5.2",
+    "chalk": "^2.4.1",
     "cobertura-parse": "^1.0.5",
     "diffparser": "^2.0.1",
     "fast-glob": "^2.2.3",
