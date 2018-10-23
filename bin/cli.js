@@ -49,7 +49,10 @@ const argv = require('yargs')
         },
     })
     .demand(1)
-    .example(`hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH' | diff-test-coverage -c **/lcov.info -t lcov --`)
+    .example(`git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --`, `Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.`)
+    .example(`git diff master...MY-BRANCH `, `Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.`)
+    .example(`hg diff -r 'p1(min(branch(.))):.'`, `Creates a diff of the current Mercurial branch.`)
+    .example(`hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH'`, `Creates a diff of the Mercurial branch MY-BRANCH.`)
     .wrap(null)
     .argv;
 

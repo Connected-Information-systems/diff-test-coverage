@@ -1,4 +1,4 @@
-# diff-test-coverage (WIP)
+# diff-test-coverage
 A Node.js commandline tool which filters test coverage based on a (source control) diff.
 
 Supported coverage report formats:
@@ -18,6 +18,7 @@ Supported source control systems:
 2. `npm i - g @connectis/diff-test-coverage`
 
 ## Usage and options
+Execute `diff-test-coverage` to see the documentation.
 ```
 Usage: <diff command> | diff-test-coverage -c <coverage report glob> -t <coverage report type> --
 
@@ -33,5 +34,9 @@ Options:
   --diff-coverage-base-dir  The base directory for displaying the diff coverage results. Uses current working directory by default.  [string] [default: "/home/markl/projects/my-federation"]
 
 Examples:
-  hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH' | diff-test-coverage -c **/lcov.info -t lcov --
+  git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --  Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
+  git diff master...MY-BRANCH                                                          Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.
+  hg diff -r 'p1(min(branch(.))):.'                                                    Creates a diff of the current Mercurial branch.
+  hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH'                                    Creates a diff of the Mercurial branch MY-BRANCH.
+
 ```
