@@ -49,7 +49,7 @@ const argv = require('yargs')
         },
     })
     .demand(1)
-    .example(`hg diff -r 'p1(min(branch(CPB-1352))):CPB-1352' | diff-test-coverage -c **/lcov.info -t lcov --`)
+    .example(`hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH' | diff-test-coverage -c **/lcov.info -t lcov --`)
     .wrap(null)
     .argv;
 
