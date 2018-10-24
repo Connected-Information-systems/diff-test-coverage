@@ -1,5 +1,7 @@
 # diff-test-coverage
-A Node.js commandline tool which filters test coverage based on a (source control) diff.
+> A Node.js commandline tool which filters test coverage based on a (source control) diff.
+
+[![NPM version][npm-image]][npm-url][![Dependency Status][depstat-image]][depstat-url]
 
 Supported coverage report formats:
 - lcov
@@ -40,3 +42,9 @@ Examples:
   hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH'                                    Creates a diff of the Mercurial branch MY-BRANCH.
 
 ```
+
+[npm-url]: https://www.npmjs.org/package/@connectis/diff-test-coverage
+[npm-image]: https://badge.fury.io/js/@connectis/diff-test-coverage.svg
+
+[depstat-url]: https://david-dm.org/Connected-Information-systems/diff-test-coverage
+[depstat-image]: https://david-dm.org/Connected-Information-systems/diff-test-coverage.svg
