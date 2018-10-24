@@ -44,7 +44,7 @@ Examples:
 ```
 
 [npm-url]: https://www.npmjs.org/package/@connectis/diff-test-coverage
-[npm-image]: https://badge.fury.io/js/@connectis/diff-test-coverage.svg
+[npm-image]: https://badge.fury.io/js/%40connectis%2Fdiff-test-coverage.svg
 
 [depstat-url]: https://david-dm.org/Connected-Information-systems/diff-test-coverage
 [depstat-image]: https://david-dm.org/Connected-Information-systems/diff-test-coverage.svg
