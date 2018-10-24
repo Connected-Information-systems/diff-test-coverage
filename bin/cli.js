@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-const coverageParser = require('../lib/coverage-parser');
+const coverageParser = require('@connectis/coverage-parser');
 const application = require('../lib/application');
 const coverageLogger = require('../lib/coverage-logger');
 
