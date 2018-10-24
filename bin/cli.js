@@ -41,12 +41,7 @@ const argv = require('yargs')
             describe: 'The base directory for resolving relative paths in the diff. Uses current working directory by default.',
             type: 'string',
             default: process.cwd()
-        },
-        'diff-coverage-base-dir': {
-            describe: 'The base directory for displaying the diff coverage results. Uses current working directory by default.',
-            type: 'string',
-            default: process.cwd()
-        },
+        }
     })
     .demand(1)
     .example(`git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --`, `Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.`)
@@ -56,7 +51,7 @@ const argv = require('yargs')
     .wrap(null)
     .argv;
 
-application.run({
+const options = {
     coverageReports: {
         globs: argv.coverage,
         types: argv.type,
@@ -65,16 +60,18 @@ application.run({
     diff: {
         text: argv._[0],
         baseDir: argv.diffBaseDir
+    },
+    coverageThresholds: {
+        lines: argv.lineCoverage,
+        branches: argv.branchCoverage
     }
-}).then(({ coverageByFile, totals }) => {
-    coverageLogger.log(coverageByFile, totals, {
-        baseDir: argv.diffCoverageBaseDir,
-        coverageThresholds: {
-            lines: argv.lineCoverage,
-            branches: argv.branchCoverage
+};
+
+application.run(options)
+    .then(({coverageByFile, totals}) => {
+        coverageLogger.log(coverageByFile, totals, options);
+
+        if (totals.lines.percentage < argv.lineCoverage || totals.branches.percentage < argv.branchCoverage) {
+            process.exitCode = 1;
         }
     });
-    if(totals.lines.percentage < argv.lineCoverage || totals.branches.percentage < argv.branchCoverage){
-        process.exitCode = 1;
-    }
-});
