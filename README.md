@@ -20,7 +20,7 @@ Supported source control systems:
 2. `npm i - g @connectis/diff-test-coverage`
 
 ## Example output
-![Screenshot](screenshots/screenshot.png "Example output")
+![Screenshot](https://raw.githubusercontent.com/Connected-Information-systems/diff-test-coverage/master/screenshots/screenshot.png "Example output")
 
 ## Usage and options
 Execute `diff-test-coverage` to see the documentation.
