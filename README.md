@@ -35,13 +35,14 @@ Options:
   -l, --line-coverage      Required line coverage percentage on the diff. The application will exit with -1 if this is not reached.  [number] [default: 80]
   -b, --branch-coverage    Required branch coverage percentage on the diff. The application will exit with -1 if this is not reached.  [number] [default: 80]
   -f, --function-coverage  Required function coverage percentage on the diff. The application will exit with -1 if this is not reached.  [number] [default: 80]
-  --diff-base-dir          The base directory for resolving relative paths in the diff. Uses current working directory by default.  [string] [default: "/home/markl/projects/my-federation"]
+  --diff-base-dir          The base directory for resolving relative paths in the diff. Uses current working directory by default.  [string] [default: "/home/markl/projects/federation"]
 
 Examples:
-  git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --  Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
-  git diff master...MY-BRANCH                                                          Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.
-  hg diff -r 'p1(min(branch(.))):.'                                                    Creates a diff of the current Mercurial branch.
-  hg diff -r 'p1(min(branch(MY-BRANCH))):MY-BRANCH'                                    Creates a diff of the Mercurial branch MY-BRANCH.
+  git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --                             Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
+  hg export -r "branch(.) and not merge()" | diff-test-coverage -c **/target/site/jacoco/jacoco.xml -t jacoco --  Runs 'diff-test-coverage' with a mercurial diff and Jacoco coverage reports.
+  git diff master...MY-BRANCH                                                                                     Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.
+  hg export -r "branch(.) and not merge()"                                                                        Creates a diff of the current Mercurial branch, excluding any merge commits.
+  hg export -r "branch(MY-BRANCH) and not merge()"                                                                Creates a diff of the Mercurial branch MY-BRANCH, excluding any merge commits.
 ```
 
 [npm-url]: https://www.npmjs.org/package/@connectis/diff-test-coverage
