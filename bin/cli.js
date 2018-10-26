@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+const path = require('path');
 const Promise = require('bluebird');
 const getStdin = require('get-stdin');
 const coverageParser = require('@connectis/coverage-parser');
@@ -18,7 +19,7 @@ function addStdinToArgv() {
         });
 }
 
-function parseCommandLineArgs(){
+function parseCommandLineArgs() {
     const argv = require('yargs')
         .usage(`Usage: <diff command> | diff-test-coverage -c <coverage report glob> -t <coverage report type> --`)
         .options({
@@ -47,10 +48,11 @@ function parseCommandLineArgs(){
                 type: 'number',
                 default: 80
             },
-            'coverage-base-dir': {
-                describe: 'The base directory for resolving relative paths in coverage reports. Uses current working directory by default.',
-                type: 'string',
-                default: process.cwd()
+            f: {
+                alias: 'function-coverage',
+                describe: 'Required function coverage percentage on the diff. The application will exit with -1 if this is not reached.',
+                type: 'number',
+                default: 80
             },
             'diff-base-dir': {
                 describe: 'The base directory for resolving relative paths in the diff. Uses current working directory by default.',
@@ -69,26 +71,28 @@ function parseCommandLineArgs(){
     return {
         coverageReports: {
             globs: argv.coverage,
-            types: argv.type,
-            baseDir: argv.coverageBaseDir
+            types: argv.type
         },
         diff: {
             text: argv._[0],
-            baseDir: argv.diffBaseDir
+            baseDir: path.resolve(argv.diffBaseDir)
         },
         coverageThresholds: {
             lines: argv.lineCoverage,
-            branches: argv.branchCoverage
+            branches: argv.branchCoverage,
+            functions: argv.functionCoverage
         }
     };
 }
 
-function runApplication(options){
+function runApplication(options) {
     return application.run(options)
         .then(({coverageByFile, totals}) => {
             coverageLogger.log(coverageByFile, totals, options);
 
-            if (totals.lines.percentage < options.coverageThresholds.lines || totals.branches.percentage < options.coverageThresholds.branches) {
+            if (totals.lines.percentage < options.coverageThresholds.lines ||
+                totals.branches.percentage < options.coverageThresholds.branches ||
+                totals.functions.percentage < options.coverageThresholds.functions) {
                 process.exitCode = 1;
             }
         });
