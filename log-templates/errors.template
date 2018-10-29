@@ -1,0 +1,4 @@
+<% if(isError(totals, 'lines')){%>${chalk.red('ERROR:')} Insufficient line coverage of ${displayCoverage(totals, 'lines')}. Required ${options.coverageThresholds.lines}%.
+<% } %><% if(isError(totals, 'branches')){%>${chalk.red('ERROR:')} Insufficient branch coverage of ${displayCoverage(totals, 'branches')}. Required ${options.coverageThresholds.branches}%.
+<% } %><% if(isError(totals, 'functions')){%>${chalk.red('ERROR:')} Insufficient function coverage of ${displayCoverage(totals, 'functions')}. Required ${options.coverageThresholds.functions}%.
+<% } %>

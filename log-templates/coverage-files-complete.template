@@ -1,0 +1,6 @@
+<% if(_.size(coverageByFile)){ %>Diff coverage results:
+------------------------------------------------------------------------------
+|     lines      |    branches    |   functions    |   path
+------------------------------------------------------------------------------
+<% _.forEach(coverageByFile, fileCoverage => { %>| ${displayCoverage(fileCoverage, 'lines', true)} | ${displayCoverage(fileCoverage, 'branches', true)} | ${displayCoverage(fileCoverage, 'functions', true)} | ${getRelativePath(fileCoverage.file)}
+<% }); %>------------------------------------------------------------------------------<% } %>

@@ -1,0 +1,4 @@
+Diff files:
+
+<% _.forEach(diffByFile, diffFile => { %>  ${getRelativePath(diffFile.to)}
+<% }); %>

@@ -1,0 +1,5 @@
+Total diff coverage:
+
+ - lines: ${displayCoverage(totals, 'lines')}
+ - branches: ${displayCoverage(totals, 'branches')}
+ - functions: ${displayCoverage(totals, 'functions')}

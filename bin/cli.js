@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const getStdin = require('get-stdin');
 const coverageParser = require('@connectis/coverage-parser');
 const application = require('../lib/application');
-const coverageLogger = require('../lib/coverage-logger');
+const coverageLogger = require('../lib/result-logger');
 
 Promise.resolve()
     .then(addStdinToArgv)
@@ -58,11 +58,23 @@ function parseCommandLineArgs() {
                 describe: 'The base directory for resolving relative paths in the diff. Uses current working directory by default.',
                 type: 'string',
                 default: process.cwd()
+            },
+            'log-base-dir': {
+                describe: 'The base directory for resolving relative paths in the console logger. Uses current working directory by default.',
+                type: 'string',
+                default: process.cwd()
+            },
+            'log-template': {
+                describe: 'The information which should be logged to the console.',
+                type: 'array',
+                choices: coverageLogger.templates,
+                default: ['coverage-files-complete', 'totals-complete', 'errors']
             }
         })
         .demand(1)
         .example(`git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --`, `Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.`)
         .example(`hg export -r "branch(.) and not merge()" | diff-test-coverage -c **/target/site/jacoco/jacoco.xml -t jacoco --`, `Runs 'diff-test-coverage' with a mercurial diff and Jacoco coverage reports.`)
+        .example(`git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --log-template diff-files coverage-files-line totals-line errors --`, `Runs 'diff-test-coverage' with custom logging.`)
         .example(`git diff master...MY-BRANCH `, `Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.`)
         .example(`hg export -r "branch(.) and not merge()"`, `Creates a diff of the current Mercurial branch, excluding any merge commits.`)
         .example(`hg export -r "branch(MY-BRANCH) and not merge()"`, `Creates a diff of the Mercurial branch MY-BRANCH, excluding any merge commits.`)
@@ -82,14 +94,18 @@ function parseCommandLineArgs() {
             lines: argv.lineCoverage,
             branches: argv.branchCoverage,
             functions: argv.functionCoverage
+        },
+        log: {
+            baseDir: path.resolve(argv.logBaseDir),
+            templates: argv.logTemplate
         }
     };
 }
 
 function runApplication(options) {
     return application.run(options)
-        .then(({coverageByFile, totals}) => {
-            coverageLogger.log(coverageByFile, totals, options);
+        .then(({ coverageByFile, diffByFile, totals }) => {
+            coverageLogger.log({ coverageByFile, diffByFile, totals, options });
 
             if (totals.lines.percentage < options.coverageThresholds.lines ||
                 totals.branches.percentage < options.coverageThresholds.branches ||

@@ -1,0 +1,1 @@
+Total diff coverage: ${displayCoverage(totals, 'lines')}
