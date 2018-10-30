@@ -3,4 +3,6 @@
 |     lines      |    branches    |   functions    |   path
 ------------------------------------------------------------------------------
 <% _.forEach(coverageByFile, fileCoverage => { %>| ${displayCoverage(fileCoverage, 'lines', true)} | ${displayCoverage(fileCoverage, 'branches', true)} | ${displayCoverage(fileCoverage, 'functions', true)} | ${getRelativePath(fileCoverage.file)}
-<% }); %>------------------------------------------------------------------------------<% } %>
+<% }); %>------------------------------------------------------------------------------
+<% } else { %>No coverage information found for any of the new lines in the diff.
+<% } %>

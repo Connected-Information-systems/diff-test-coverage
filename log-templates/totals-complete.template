@@ -1,5 +1,6 @@
-Total diff coverage:
+<% if(_.size(diffByFile) && _.size(coverageByFile)){ %>Total diff coverage:
 
  - lines: ${displayCoverage(totals, 'lines')}
  - branches: ${displayCoverage(totals, 'branches')}
  - functions: ${displayCoverage(totals, 'functions')}
+<% } %>

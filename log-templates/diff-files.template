@@ -1,4 +1,5 @@
-Diff files:
+<% if(_.size(diffByFile)){ %>Diff files:
 
 <% _.forEach(diffByFile, diffFile => { %>  ${getRelativePath(diffFile.to)}
-<% }); %>
+<% }); %><% } else { %>No diff information found.
+<% } %>
