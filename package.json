@@ -1,6 +1,6 @@
 {
   "name": "@connectis/diff-test-coverage",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Commandline tool which calculates test coverage of (source control) diffs.",
   "bin": {
     "diff-test-coverage": "bin/cli.js"
@@ -33,6 +33,7 @@
     "diffparser": "^2.0.1",
     "get-stdin": "^6.0.0",
     "lodash": "^4.17.11",
+    "micromatch": "^3.1.10",
     "yargs": "^12.0.2"
   }
 }
