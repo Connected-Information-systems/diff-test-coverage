@@ -42,15 +42,17 @@ Options:
   --diff-filter            Glob pattern(s) that specify which files from the diff should be included.  [array]
   --log-base-dir           The base directory for resolving relative paths in the console logger. Uses current working directory by default.  [string] [default: `process.cwd()`]
   --log-template           The information which should be logged to the console.  [array] [choices: "diff-files", "coverage-files-line", "coverage-files-complete", "totals-line", "totals-complete", "errors"] [default: ["coverage-files-complete","totals-complete","errors"]]
+  --color                  Whether colors should be used in the log. Default: autodetect by 'chalk'.  [boolean]
 
 Examples:
-  git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --                                                      Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
-  hg export -r "branch(.) and not merge()" | diff-test-coverage -c **/target/site/jacoco/jacoco.xml -t jacoco --                           Runs 'diff-test-coverage' with a mercurial diff and Jacoco coverage reports.
-  <diff command> | diff-test-coverage -c **/coverage.xml -t cobertura --log-template diff-files coverage-files-line totals-line errors --  Runs 'diff-test-coverage' with custom logging.
-  <diff command> | diff-test-coverage -c **/coverage.xml -t cobertura --diff-filter *.java *.kt --                                         Runs 'diff-test-coverage' with the diff filtered on Java and Kotlin files.
-  git diff master...MY-BRANCH                                                                                                              Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.
-  hg export -r "branch(.) and not merge()"                                                                                                 Creates a diff of the current Mercurial branch, excluding any merge commits.
-  hg export -r "branch(MY-BRANCH) and not merge()"                                                                                         Creates a diff of the Mercurial branch MY-BRANCH, excluding any merge commits.
+  git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --                                                                     Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
+  hg export -r "branch(.) and not merge()" | diff-test-coverage -c **/target/site/jacoco/jacoco.xml -t jacoco --                                          Runs 'diff-test-coverage' with a mercurial diff and Jacoco coverage reports.
+  <diff command> | diff-test-coverage --log-template diff-files coverage-files-line totals-line errors <other args> --                                    Runs 'diff-test-coverage' with custom logging.
+  <diff command> | diff-test-coverage --diff-filter *.java *.kt --log-template diff-files coverage-files-complete totals-complete errors <other args> --  Runs 'diff-test-coverage' with the diff filtered on Java and Kotlin files.
+  <diff command> | diff-test-coverage --no-color <other args> --                                                                                          Runs 'diff-test-coverage' without color in the log.
+  git diff master...MY-BRANCH                                                                                                                             Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.
+  hg export -r "branch(.) and not merge()"                                                                                                                Creates a diff of the current Mercurial branch, excluding any merge commits.
+  hg export -r "branch(MY-BRANCH) and not merge()"                                                                                                        Creates a diff of the Mercurial branch MY-BRANCH, excluding any merge commits.
 ```
 
 [npm-url]: https://www.npmjs.org/package/@connectis/diff-test-coverage
