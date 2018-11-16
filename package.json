@@ -1,6 +1,6 @@
 {
   "name": "@connectis/diff-test-coverage",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Commandline tool which calculates test coverage of (source control) diffs.",
   "bin": {
     "diff-test-coverage": "bin/cli.js"
@@ -27,6 +27,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
+    "@connectis/coverage-merger": "^1.1.0",
     "@connectis/coverage-parser": "^1.0.4",
     "bluebird": "^3.5.2",
     "chalk": "^2.4.1",
