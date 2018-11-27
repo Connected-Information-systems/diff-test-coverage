@@ -17,7 +17,7 @@ Supported source control systems:
 
 ## Installation
 1. Install [Node.js with NPM](https://nodejs.org/en/download/)
-2. `npm i - g @connectis/diff-test-coverage`
+2. `npm i -g @connectis/diff-test-coverage`
 
 ## Example output
 ![Screenshot](https://raw.githubusercontent.com/Connected-Information-systems/diff-test-coverage/master/screenshots/screenshot.png "Example output")
