@@ -2,6 +2,7 @@
 const path = require('path');
 const Promise = require('bluebird');
 const getStdin = require('get-stdin');
+const chalk = require('chalk');
 const coverageParser = require('@connectis/coverage-parser');
 const application = require('../lib/application');
 const coverageLogger = require('../lib/result-logger');
@@ -126,5 +127,9 @@ function runApplication(options) {
                 totals.functions.percentage < options.coverageThresholds.functions) {
                 process.exitCode = 1;
             }
+        })
+        .catch(error => {
+            console.error(chalk.red(`An unexpected error occurred: ${error.stack}`));
+            process.exitCode = 1;
         });
 }
