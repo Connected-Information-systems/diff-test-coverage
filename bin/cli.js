@@ -5,7 +5,7 @@ const getStdin = require('get-stdin');
 const chalk = require('chalk');
 const coverageParser = require('@connectis/coverage-parser');
 const application = require('../lib/application');
-const coverageLogger = require('../lib/result-logger');
+const consoleReporter = require('../lib/console-reporter');
 
 Promise.resolve()
     .then(addStdinToArgv)
@@ -73,9 +73,9 @@ function parseCommandLineArgs() {
                 default: process.cwd()
             },
             'log-template': {
-                describe: 'The information which should be logged to the console.',
+                describe: 'The information which should be reported to the console. Use \'full\' for a complete report.',
                 type: 'array',
-                choices: coverageLogger.templates,
+                choices: consoleReporter.templates,
                 default: ['coverage-files-complete', 'totals-complete', 'errors']
             },
             'color': {
@@ -86,8 +86,9 @@ function parseCommandLineArgs() {
         .demand(1)
         .example(`git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --`, `Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.`)
         .example(`hg export -r "branch(.) and not merge()" | diff-test-coverage -c **/target/site/jacoco/jacoco.xml -t jacoco --`, `Runs 'diff-test-coverage' with a mercurial diff and Jacoco coverage reports.`)
+        .example(`<diff command> | diff-test-coverage --log-template full <other args> --`, `Runs 'diff-test-coverage' with full logging.`)
         .example(`<diff command> | diff-test-coverage --log-template diff-files coverage-files-line totals-line errors <other args> --`, `Runs 'diff-test-coverage' with custom logging.`)
-        .example(`<diff command> | diff-test-coverage --diff-filter *.java *.kt --log-template diff-files coverage-files-complete totals-complete errors <other args> --`, `Runs 'diff-test-coverage' with the diff filtered on Java and Kotlin files.`)
+        .example(`<diff command> | diff-test-coverage --diff-filter *.java *.kt --log-template full <other args> --`, `Runs 'diff-test-coverage' with the diff filtered on Java and Kotlin files.`)
         .example(`<diff command> | diff-test-coverage --no-color <other args> --`, `Runs 'diff-test-coverage' without color in the log.`)
         .example(`git diff master...MY-BRANCH `, `Creates a diff of the Git branch 'MY-BRANCH' which originated from the master branch.`)
         .example(`hg export -r "branch(.) and not merge()"`, `Creates a diff of the current Mercurial branch, excluding any merge commits.`)
@@ -110,7 +111,7 @@ function parseCommandLineArgs() {
             branches: argv.branchCoverage,
             functions: argv.functionCoverage
         },
-        log: {
+        consoleReport: {
             baseDir: path.resolve(argv.logBaseDir),
             templates: argv.logTemplate
         }
@@ -120,7 +121,7 @@ function parseCommandLineArgs() {
 function runApplication(options) {
     return application.run(options)
         .then(({ coverageByFile, diffByFile, totals }) => {
-            coverageLogger.log({ coverageByFile, diffByFile, totals, options });
+            consoleReporter.report({ coverageByFile, diffByFile, totals, options });
 
             if (totals.lines.percentage < options.coverageThresholds.lines ||
                 totals.branches.percentage < options.coverageThresholds.branches ||
