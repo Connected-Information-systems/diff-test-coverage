@@ -2,6 +2,5 @@
 <% _.forEach(coverageByFile, (fileCoverage, file) => { if(_.size(fileCoverage.branches.details)){ %>------------------------------------------------------------------------------
 ${getRelativePath(fileCoverage.file)}
 ------------------------------------------------------------------------------
-<% _.forEach(_.get(diffByFile, [file, 'linesByNumber']), (line, lineNumber) => { %>${displayBranchCoverage(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------
-<% }}); %>
+<% _.forEach(_.get(diffByFile, [file, 'linesByNumber']), (line, lineNumber) => { %>${displayBranchCoverage(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------<% }}); %>
 <% } %>
