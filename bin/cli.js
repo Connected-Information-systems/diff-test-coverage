@@ -120,8 +120,8 @@ function parseCommandLineArgs() {
 
 function runApplication(options) {
     return application.run(options)
-        .then(({ coverageByFile, diffByFile, totals }) => {
-            consoleReporter.report({ coverageByFile, diffByFile, totals, options });
+        .then(({ coverageByFile, additionsByFile, totals }) => {
+            consoleReporter.report({ coverageByFile, additionsByFile, totals, options });
 
             if (totals.lines.percentage < options.coverageThresholds.lines ||
                 totals.branches.percentage < options.coverageThresholds.branches ||
