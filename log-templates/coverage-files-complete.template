@@ -1,4 +1,4 @@
-<% if(_.size(coverageByFile)){ %>Diff coverage results:
+<% if(_.size(coverageByFile)){ %>Diff coverage statistics:
 ------------------------------------------------------------------------------
 |     lines      |    branches    |   functions    |   path
 ------------------------------------------------------------------------------

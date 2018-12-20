@@ -1,4 +1,4 @@
-<% if(_.size(coverageByFile)){ %>Diff coverage results:
+<% if(_.size(coverageByFile)){ %>Diff coverage statistics:
 
 <% _.forEach(coverageByFile, fileCoverage => { %>  ${displayCoverage(fileCoverage, 'lines', true)} ${getRelativePath(fileCoverage.file)}
 <% }); %><% } else { %>No coverage information found for any of the new lines in the diff.

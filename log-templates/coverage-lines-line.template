@@ -1,6 +1,7 @@
-<% if(_.size(coverageByFile)){ %>Line coverage results:
+<% if(_.size(coverageByFile)){ %>Diff line coverage results:
 <% _.forEach(coverageByFile, (fileCoverage, file) => { if(_.size(fileCoverage.lines.details)){ %>------------------------------------------------------------------------------
 ${getRelativePath(fileCoverage.file)}
 ------------------------------------------------------------------------------
-<% _.forEach(_.get(additionsByFile, [file, 'lines']), (line, lineNumber) => { %>${displayLineCoverage(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------<% }}); %>
-<% } %>
+<% _.forEach(_.get(additionsByFile, [file, 'lines']), (line, lineNumber) => { %>${displayLineCoverageLine(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------
+
+<% }}); %><% } %>

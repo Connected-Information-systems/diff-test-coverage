@@ -1,0 +1,12 @@
+<% if(_.size(coverageByFile)){ %>Diff coverage results:
+
+  F = Function coverage
+  L = Line coverage
+  B = Branch coverage
+
+<% _.forEach(coverageByFile, (fileCoverage, file) => { %>------------------------------------------------------------------------------
+${getRelativePath(fileCoverage.file)}
+------------------------------------------------------------------------------
+<% _.forEach(_.get(additionsByFile, [file, 'lines']), (line, lineNumber) => { %>${displayCompleteCoverageLine(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------
+
+<% }); %><% } %>

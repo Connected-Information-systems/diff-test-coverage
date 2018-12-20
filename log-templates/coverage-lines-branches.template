@@ -1,0 +1,7 @@
+<% if(_.size(coverageByFile)){ %>Diff branch coverage results:
+<% _.forEach(coverageByFile, (fileCoverage, file) => { if(_.size(fileCoverage.branches.details)){ %>------------------------------------------------------------------------------
+${getRelativePath(fileCoverage.file)}
+------------------------------------------------------------------------------
+<% _.forEach(_.get(additionsByFile, [file, 'lines']), (line, lineNumber) => { %>${displayBranchCoverageLine(file, lineNumber, line)}<% }); %>------------------------------------------------------------------------------
+
+<% }}); %><% } %>
