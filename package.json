@@ -1,6 +1,6 @@
 {
   "name": "@connectis/diff-test-coverage",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Commandline tool which calculates test coverage of (source control) diffs.",
   "bin": {
     "diff-test-coverage": "bin/cli.js"
