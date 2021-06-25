@@ -81,6 +81,12 @@ function parseCommandLineArgs() {
             'color': {
                 describe: 'Whether colors should be used in the log. Default: autodetect by \'chalk\'.',
                 type: 'boolean'
+            },
+            o: {
+                alias: 'output-location',
+                describe: 'The output location of the tool. The location will be written by the raw coverage summary.',
+                type: 'string',
+                default: ''
             }
         })
         .demand(1)
@@ -113,7 +119,8 @@ function parseCommandLineArgs() {
         },
         consoleReport: {
             baseDir: path.resolve(argv.logBaseDir),
-            templates: argv.logTemplate
+            templates: argv.logTemplate,
+            outputLocation: argv.outputLocation
         }
     };
 }
