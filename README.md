@@ -43,6 +43,7 @@ Options:
   --log-base-dir           The base directory for resolving relative paths in the console logger. Uses current working directory by default.  [string] [default: `process.cwd()`]
   --log-template           The information which should be logged to the console.  [array] [choices: "diff-files", "coverage-files-line", "coverage-files-complete", "totals-line", "totals-complete", "errors"] [default: ["coverage-files-complete","totals-complete","errors"]]
   --color                  Whether colors should be used in the log. Default: autodetect by 'chalk'.  [boolean]
+  --output-location        The location where the raw coverage summary is to be written
 
 Examples:
   git diff master...MY-BRANCH | diff-test-coverage -c **/coverage.xml -t cobertura --                                                                     Runs 'diff-test-coverage' with a git diff and Cobertura coverage reports.
